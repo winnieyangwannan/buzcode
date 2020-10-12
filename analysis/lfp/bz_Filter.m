@@ -204,7 +204,11 @@ switch(type),
         end
     case 'butter'
         if ~isempty(passband)
+            if passband(2) == inf
+            [b a] = butter(order, passband(1)/(nyquist*2),'high');
+            else
             [b a] = butter(order,[passband(1)/nyquist passband(2)/nyquist],'bandpass');
+            end
         else
             [b a] = butter(order,stopband(1)/nyquist,'stop');
         end
